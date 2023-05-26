@@ -1,0 +1,70 @@
+body{
+    background-color: rgb(96, 161, 226);
+}
+
+h1 {
+    color:#b21ddf, 0, 0;
+    border-style: dashed;
+    border-color: #b21ddf ;
+    border-width: 10px;
+    font-family: 'Trebuchet MS';
+    font-weight: 300;
+
+}
+
+
+
+h2{
+    border-color: darkviolet; 
+    border-style: solid;
+    border-color:rgb(96, 161, 226)
+    border-radius 5px;
+    background-color: rgb(96, 226, 128);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: normal;
+    
+}
+
+#box-model {
+    padding: 20px;
+    border-style: dotted;
+    border-width: 10px;
+    margin: 15px;
+    background-color: blue;
+    border-radius: 20px;
+}
+input {
+    font-family: 'Gill Sans';
+    font-weight: 300;
+    font-style: italic;
+}
+
+th,td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px dotted darkblue;
+}
+
+li{
+    background-color: rgb(213, 117, 175);
+}  
+
+
+form {
+    padding: 10px;
+}
+
+tr:nth-child(odd){
+    background-color: rgb(200, 161, 236);
+}
+tr:nth-child(even){
+    background-color: lightblue;
+}
+
+h2.hover{
+    background-color: fuchsia;
+}
+
+table::first-line{
+    background-color: deeppink;
+}
