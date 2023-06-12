@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: aquamarine;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      font-size: 48px;
+      cursor: pointer;
+      border: 1px solid #000;
+      border-color: dodgerblue;
+      color: rgb(255, 0, 183);
+    }
+
+    h1 {
+      color: blueviolet;
+    }
+
+    h3{
+      color:darkmagenta;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tic Tac Toe</h1>
+    <div class="row">
+      <div class="col-12">
+        <h3>Player's Turn: <span id="playerTurn">X</span></h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4 cell" onclick="placeSymbol(0)"></div>
+      <div class="col-4 cell" onclick="placeSymbol(1)"></div>
+      <div class="col-4 cell" onclick="placeSymbol(2)"></div>
+    </div>
+    <div class="row">
+      <div class="col-4 cell" onclick="placeSymbol(3)"></div>
+      <div class="col-4 cell" onclick="placeSymbol(4)"></div>
+      <div class="col-4 cell" onclick="placeSymbol(5)"></div>
+    </div>
+    <div class="row">
+      <div class="col-4 cell" onclick="placeSymbol(6)"></div>
+      <div class="col-4 cell" onclick="placeSymbol(7)"></div>
+      <div class="col-4 cell" onclick="placeSymbol(8)"></div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <button class="btn btn-primary" onclick="clearGame()">Clear</button>
+        <button class="btn btn-primary" onclick="restartGame()">Restart</button>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col">
+        <h3 id="result"></h3>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var currentPlayer = "X";
+    var board = ["", "", "", "", "", "", "", "", ""];
+
+    function placeSymbol(index) {
+      if (board[index] === "") {
+        board[index] = currentPlayer;
+        document.getElementsByClassName("cell")[index].innerText = currentPlayer;
+        document.getElementsByClassName("cell")[index].setAttribute("onclick", "");
+
+        if (checkWinner()) {
+          document.getElementById("result").innerText = "Player " + currentPlayer + " wins!";
+          disableBoard();
+        } else if (isBoardFull()) {
+          document.getElementById("result").innerText = "It's a draw!";
+          disableBoard();
+        } else {
+          currentPlayer = currentPlayer === "X" ? "O" : "X";
+          document.getElementById("playerTurn").innerText = currentPlayer;
+        }
+      }
+    }
+
+    function checkWinner() {
+      var winningCombinations = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [2, 4, 6]
+      ];
+
+      for (var i = 0; i < winningCombinations.length; i++) {
+        var [a, b, c] = winningCombinations[i];
+        if (board[a] !== "" && board[a] === board[b] && board[a] === board[c]) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function isBoardFull() {
+      return board.every(cell => cell !== "");
+    }
+
+    function clearGame() {
+      currentPlayer = "X";
+      board = ["", "", "", "", "", "", "", "", ""];
+      Array.from(document.getElementsByClassName("cell")).forEach(cell => {
+        cell.innerText = "";
+        cell.setAttribute("onclick", "placeSymbol(" + cell.cellIndex + ")");
+      });
+      document.getElementById("result").innerText = "";
+      document.getElementById("playerTurn").innerText = currentPlayer;
+    }
+
+    function restartGame() {
+      clearGame();
+      enableBoard();
+    }
+
+    function disableBoard() {
+      Array.from(document.getElementsByClassName("cell")).forEach(cell => {
+        cell.setAttribute("onclick", "");
+      });
+    }
+
+    function enableBoard() {
+      Array.from(document.getElementsByClassName("cell")).forEach(cell => {
+        cell.setAttribute("onclick", "placeSymbol(" + cell.cellIndex + ")");
+      });
+    }
+  </script>
+</body>
+</html>
